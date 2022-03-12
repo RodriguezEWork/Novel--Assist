@@ -91,13 +91,15 @@ class novelasController extends Controller
     public function subirCapitulo(Request $request)
     {
         $numero = $_POST['numero'];
-        $titulo = $_POST['titulo'];
+        $tituloCap = $_POST['tituloCap'];
         $id_novelas = $_POST['id_novelas'];
         $capitulo = $_POST['capitulo'];
+        $marcado = false;
 
         $capitulos = new Capitulo;
-        $capitulos->titulo = $titulo;
+        $capitulos->titulo = $tituloCap;
         $capitulos->numero = $numero;
+        $capitulos->marcado = $marcado;
         $capitulos->capitulo = $capitulo;
         $capitulos->id_Novelas = $id_novelas;
         $capitulos->save();

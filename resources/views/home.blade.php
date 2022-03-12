@@ -10,6 +10,7 @@
                 <div class="titulares">
                     <h2>Novelas</h2>
                     <h3 id="registroCapitulo"></h3>
+                    <a href="#modal2" value="2" class="cna">Subir Capitulo</a>
                     <a href="#modal" value="2" class="cna">Agregar novela</a>
                 </div>
                 <input type="search" id="search" placeholder="Buscar Novelas" class="field-style field-full align-none search">
@@ -35,6 +36,34 @@
                             </li>
                             <li>
                             <input type="submit" value="Subir novela" />
+                            <a href="#general">Cerrar</a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+
+            <div id="modal2" class="modal">
+                <div class="modal_container">
+                    <form id="subir-form" class="form-style-9">
+                        @csrf
+                        <ul>
+                            <li>
+                                <input id="tituloCap" type="text" name="field3" class="field-style field-full align-none" placeholder="Titulo" />
+                            </li>
+                            <li>
+                                <input id="numero" type="text" name="field3" class="field-style field-full align-none" placeholder="Numero" />
+                            </li>
+                            <li>
+                                <select name="Selector_Novelas" id="id_Novelas" class="field-style field-full align-none">
+                                    <option value="">Uno</option>
+                                </select>
+                            </li>
+                            <li>
+                            <textarea id="capitulo" name="field5" class="field-style" placeholder="Capitulo"></textarea>
+                            </li>
+                            <li>
+                            <input type="submit" value="Subir Capitulo" />
                             <a href="#general">Cerrar</a>
                             </li>
                         </ul>
@@ -197,7 +226,7 @@
                             template2 += `<option value="${task.id}">${task.titulo}</option>`
                         })
                         $('#cartas').html(template);
-                        $('#seleccionNovelas').html(template2);
+                        $('#id_Novelas').html(template2);
                     }
                 })
             };
@@ -212,6 +241,19 @@
                 $.post('/novelas/create', postData, function (response) {
                     cargarNovelas();
                     $('#crear-form').trigger('reset');
+                })
+                e.preventDefault();
+            })
+
+            $('#subir-form').submit(function (e) {
+                const postData = {
+                    numero: $('#numero').val(),
+                    tituloCap: $('#tituloCap').val(),
+                    id_novelas: $('#id_Novelas').val(),
+                    capitulo: $('#capitulo').val()
+                };
+                $.post('/novelas/subir', postData, function (response) {
+                    $('#subir-form').trigger('reset');
                 })
                 e.preventDefault();
             })
