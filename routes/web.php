@@ -29,7 +29,7 @@ Route::post('/novelas/create', [novelasController::class, 'store']);
 
 Route::get('/enlistar', function () {
     return view('reproductor', [
-        'capitulos' => Capitulo::where('id_Novelas', '=', request('q'))->orderBy('id', 'desc')
+        'capitulos' => Capitulo::where('id_Novelas', '=', request('q'))->orderBy('numero', 'asc')
             ->get()
     ]);
 });
